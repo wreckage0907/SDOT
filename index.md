@@ -1,4 +1,7 @@
 ---
+layout: default
+title: Home
+---
 
 <details>
 <summary>21. Merge Sorted Linked List.py</summary>
@@ -20,7 +23,8 @@ class Solution:
             temp=temp.next
         if list1: temp.next=list1
         if list2: temp.next=list2
-        return head.next```
+        return head.next
+```
 </details>
 ---
 
@@ -53,7 +57,8 @@ class Solution:
             left = left.next
             right = right.next
         
-        return True```
+        return True
+```
 </details>
 ---
 
@@ -123,6 +128,7 @@ if __name__=="__main__":
     ll.reverse()
     print("\n")
     ll.print()
+
 ```
 </details>
 ---
