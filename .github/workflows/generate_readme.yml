@@ -30,6 +30,7 @@ jobs:
             echo "---" >> index.md
             for file in codes/*; do
               filename=$(basename "$file")
+              filename="$filename%.py"
               echo "" >> index.md
               echo "<details>" >> index.md
               echo "<summary>$filename</summary>" >> index.md
