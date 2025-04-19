@@ -3,16 +3,8 @@ layout: default
 title: Home
 ---
 
-# SDOT is boring
-
-_SDOD IS BORING !!!_
-
-[View on GitHub](https://github.com/wreckage0907/SDOT)
-
----
-
 <details>
-<summary>Click to view LinkedList implementation</summary>
+<summary>LinkedList Implementation in Python</summary>
 
 <pre><code class="language-python">
 class Node:
@@ -83,5 +75,64 @@ if __name__ == "__main__":
     ll.print()
 </code></pre>
 
+</details>
+---
+
+<details>
+<summary>21. Merge Sorted Linked List</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        if list1 is None : return list2
+        if list2 is None : return list1
+        temp = ListNode(-1)
+        head = temp
+        while list1 and list2:
+            if list1.val<list2.val:
+                temp.next=list1
+                list1=list1.next
+            else:
+                temp.next=list2
+                list2=list2.next
+            temp=temp.next
+        if list1: temp.next=list1
+        if list2: temp.next=list2
+        return head.next
+</code></pre>
+</details>
+---
+<details>
+<summary>234. Pallindromic LinkedList</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        if not head or not head.next:
+            return True
+        
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        prev = None
+        while slow:
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+        
+
+        left, right = head, prev
+        while right:  
+            if left.val != right.val:
+                return False
+            left = left.next
+            right = right.next
+        
+        return True
+
+</code></pre>
 </details>
 
