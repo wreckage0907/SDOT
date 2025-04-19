@@ -1,0 +1,52 @@
+name: Generate index.md
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies (if needed)
+        run: pip install --upgrade pip
+
+      - name: Generate index.md
+        run: |
+          echo "---" > index.md
+          echo "layout: default" > index.md
+          echo "title: Home" > index.md
+          echo "---" > index.md
+          for file in codes/*; do
+            filename=$(basename "$file")
+            echo "" >> index.md
+            echo "<details>" >> index.md
+            echo "<summary>$filename</summary>" >> index.md
+            echo "" >> index.md
+            echo "\`\`\`python" >> index.md
+            cat "$file" >> index.md
+            echo "\`\`\`" >> index.md
+            echo "</details>" >> index.md
+            echo "---" >> index.md
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'actions@github.com'
+          git add index.md
+          git commit -m "Update index.md"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
