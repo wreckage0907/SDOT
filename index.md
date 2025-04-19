@@ -6,7 +6,7 @@ title: Home
 <details>
 <summary>21. Merge Sorted Linked List.py</summary>
 
-```python
+<pre><code class="language-python">
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         if list1 is None : return list2
@@ -24,14 +24,14 @@ class Solution:
         if list1: temp.next=list1
         if list2: temp.next=list2
         return head.next
-```
+</code></pre>
 </details>
 ---
 
 <details>
 <summary>234. Palindromic Linked List.py</summary>
 
-```python
+<pre><code class="language-python">
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         if not head or not head.next:
@@ -58,14 +58,14 @@ class Solution:
             right = right.next
         
         return True
-```
+</code></pre>
 </details>
 ---
 
 <details>
 <summary>LinkedList.py</summary>
 
-```python
+<pre><code class="language-python">
 class Node:
     def __init__(self,data):
         self.data=data
@@ -129,6 +129,6 @@ if __name__=="__main__":
     print("\n")
     ll.print()
 
-```
+</code></pre>
 </details>
 ---
