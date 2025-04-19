@@ -34,10 +34,10 @@ jobs:
               echo "<details>" >> index.md
               echo "<summary>$filename</summary>" >> index.md
               echo "" >> index.md
-              echo '```python' >> index.md
+              echo '<pre><code class="language-python">' >> index.md
               cat "$file" >> index.md
               echo "" >> index.md
-              echo '```' >> index.md
+              echo '</code></pre>' >> index.md
               echo "</details>" >> index.md
               echo "---" >> index.md
             done
