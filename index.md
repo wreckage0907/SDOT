@@ -102,6 +102,41 @@ class Solution:
 ---
 
 <details>
+<summary>143. Reorder List</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def reorderList(self, head):
+        if not head or not head.next:
+            return
+        
+        # Step 1: Find the middle of the list
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        # Step 2: Reverse the second half
+        prev, curr = None, slow.next
+        slow.next = None  # Disconnect the two halves
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        
+        # Step 3: Merge the two halves
+        first, second = head, prev
+        while second:
+            temp1, temp2 = first.next, second.next
+            first.next = second
+            second.next = temp1
+            first, second = temp1, temp2
+</code></pre>
+</details>
+---
+
+<details>
 <summary>21. Merge Sorted Linked List</summary>
 
 <pre><code class="language-python">
@@ -197,6 +232,46 @@ class Solution:
 ---
 
 <details>
+<summary>25. Reverse Nodes in k-Group</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+        if not head or k == 1:
+            return head
+
+        dummy = ListNode(0)
+        dummy.next = head
+        prev = dummy
+        curr = head
+
+        # Count the number of nodes in the list
+        count = 0
+        while curr:
+            count += 1
+            curr = curr.next
+
+        # Reverse k nodes at a time
+        while count >= k:
+            curr = prev.next
+            nxt = curr.next
+
+            # Reverse k nodes
+            for _ in range(1, k):
+                curr.next = nxt.next
+                nxt.next = prev.next
+                prev.next = nxt
+                nxt = curr.next
+
+            prev = curr
+            count -= k
+
+        return dummy.next
+</code></pre>
+</details>
+---
+
+<details>
 <summary>3. Longest Substring Without Repeating Characters</summary>
 
 <pre><code class="language-python">
@@ -212,6 +287,38 @@ class Solution:
             r=r+1
         return leng
         
+</code></pre>
+</details>
+---
+
+<details>
+<summary>328. Odd Even Linked List</summary>
+
+<pre><code class="language-python">
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None or head.next is None or head.next.next is None:
+            return head
+
+        odd = head
+        even = head.next
+        temp = even
+
+        while even and even.next:
+            odd.next = even.next
+            odd = odd.next
+            even.next = odd.next
+            even = even.next
+
+        odd.next = temp
+        return head
+
 </code></pre>
 </details>
 ---
