@@ -4,7 +4,7 @@ title: Home
 ---
 
 <details>
-<summary>0. Implementation of LinkedList.py%.py</summary>
+<summary>0. Implementation of LinkedList</summary>
 
 <pre><code class="language-python">
 class Node:
@@ -75,7 +75,7 @@ if __name__=="__main__":
 ---
 
 <details>
-<summary>1392. Longest Happy Prefix.py%.py</summary>
+<summary>1392. Longest Happy Prefix</summary>
 
 <pre><code class="language-python">
 class Solution:
@@ -102,7 +102,7 @@ class Solution:
 ---
 
 <details>
-<summary>21. Merge Sorted Linked List.py%.py</summary>
+<summary>21. Merge Sorted Linked List</summary>
 
 <pre><code class="language-python">
 class Solution:
@@ -127,7 +127,7 @@ class Solution:
 ---
 
 <details>
-<summary>23. Merge K Sorted LinkedList.py%.py</summary>
+<summary>23. Merge K Sorted LinkedList</summary>
 
 <pre><code class="language-python">
 from typing import List, Optional
@@ -163,7 +163,7 @@ class Solution:
 ---
 
 <details>
-<summary>234. Palindromic Linked List.py%.py</summary>
+<summary>234. Palindromic Linked List</summary>
 
 <pre><code class="language-python">
 class Solution:
@@ -197,7 +197,7 @@ class Solution:
 ---
 
 <details>
-<summary>3. Longest Substring Without Repeating Characters.py%.py</summary>
+<summary>3. Longest Substring Without Repeating Characters</summary>
 
 <pre><code class="language-python">
 class Solution:
@@ -217,7 +217,7 @@ class Solution:
 ---
 
 <details>
-<summary>61. Rotate List.py%.py</summary>
+<summary>61. Rotate List</summary>
 
 <pre><code class="language-python">
 # Definition for singly-linked list.
