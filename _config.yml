@@ -1,0 +1,18 @@
+title: SDOT is boring
+description : SDOT IS BORING !!!
+url : "https://wreckage0907.github.io/SDOT"
+baseurl:""
+
+remote_theme: pages-themes/hacker@v0.2.0
+
+markdown: kramdown
+highlighter: rouge
+
+exclude:
+  - README.md
+  - LICENSE
+
+plugins:
+  - jekyll-seo-tag       
+  - jekyll-feed          
+  - jekyll-remote-theme 
