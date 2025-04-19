@@ -33,7 +33,16 @@ class LinkedList:
                 temp=temp.next
             newNode.next=temp.next
             temp.next=newNode
-            
+    def reverse(self):
+        curr = self.head
+        prev = None
+        future = None
+        while curr is not None:
+            future = curr.next
+            curr.next = prev
+            prev = curr
+            curr = future
+        self.head=prev
     def print(self):
         temp=self.head
         while temp is not None:
@@ -47,7 +56,7 @@ if __name__=="__main__":
         if e==-1:
             break
         ll.insertatbeg(e)
-    ll.print()
-    print("\n\n")
-    ll.insertatmid(3,10)
+    ll.print();
+    ll.reverse()
+    print("\n")
     ll.print()
