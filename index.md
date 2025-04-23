@@ -146,6 +146,61 @@ class Solution:
 ---
 
 <details>
+<summary>1095. Find in Mountain Array</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -> int:
+        length = mountain_arr.length()
+
+        def find_target(left, right, target, is_upside):
+            while left <= right:
+                mid = (left + right) // 2
+                mid_val = mountain_arr.get(mid)
+
+                if mid_val == target:
+                    return mid
+                
+                if is_upside:
+                    if target > mid_val:
+                        left = mid + 1
+                    else:
+                        right = mid - 1
+                else:
+                    if target > mid_val:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+
+            return -1
+
+        def find_peak():
+            nonlocal length
+
+            left, right = 0, length - 1
+
+            while left < right:
+                mid = (left + right) // 2
+                if mountain_arr.get(mid) < mountain_arr.get(mid + 1):
+                    left = mid + 1
+                else:
+                    right = mid
+            
+            return left
+
+        peak_index = find_peak()
+
+
+        result = find_target(0, peak_index, target, True)
+        if result != -1:
+            return result
+        
+        return find_target(peak_index + 1, length - 1, target, False)        
+</code></pre>
+</details>
+---
+
+<details>
 <summary>114. Flatten Binary Tree to Linkedlist</summary>
 
 <pre><code class="language-python">
@@ -194,6 +249,29 @@ class Solution:
             return summ(root.left,curr)+summ(root.right,curr)
         return summ(root,0)
         
+</code></pre>
+</details>
+---
+
+<details>
+<summary>1358. Number of Substrings Containing All 3 Characters</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        count = 0
+        left = 0
+        char_count = {'a': 0, 'b': 0, 'c': 0}
+        
+        for right in range(len(s)):
+            char_count[s[right]] += 1
+            
+            while char_count['a'] > 0 and char_count['b'] > 0 and char_count['c'] > 0:
+                count += len(s) - right
+                char_count[s[left]] -= 1
+                left += 1
+        
+        return count
 </code></pre>
 </details>
 ---
@@ -283,6 +361,45 @@ class Solution:
                 st.append(int(c))
         
         return st[0]
+</code></pre>
+</details>
+---
+
+<details>
+<summary>17. Letter Combinations of a Phone Number</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        res=[]
+        letter=["","","abc","def","ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"]
+        def backtrack(i,curr):
+            if(len(curr)==len(digits)):
+                res.append(curr)
+                return
+            for c in letter[int(digits[i])]:
+                backtrack(i+1,curr+c)
+        
+        backtrack(0,"")
+        return res if res[0] else []
+</code></pre>
+</details>
+---
+
+<details>
+<summary>198. House Robber</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        rob,norob=0,0
+        for i in range(len(nums)):
+            newrob = norob+nums[i]
+            newNorob = max(norob,rob)
+            rob = newrob
+            norob = newNorob
+        return max(rob,norob)
+        
 </code></pre>
 </details>
 ---
@@ -401,6 +518,61 @@ class Solution:
         if list1: temp.next=list1
         if list2: temp.next=list2
         return head.next
+</code></pre>
+</details>
+---
+
+<details>
+<summary>214. Shortest Pallindrome</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def shortestPalindrome(self, s: str) -> str:
+        count = self.kmp(s[::-1], s)
+        return s[count:][::-1] + s
+    def kmp(self, txt: str, patt: str) -> int:
+        new_string = patt + '#' + txt
+        pi = [0] * len(new_string)
+        i = 1
+        k = 0
+        while i < len(new_string):
+            if new_string[i] == new_string[k]:
+                k += 1
+                pi[i] = k
+                i += 1
+            else:
+                if k > 0:
+                    k = pi[k - 1]
+                else:
+                    pi[i] = 0
+                    i += 1
+        return pi[-1]
+</code></pre>
+</details>
+---
+
+<details>
+<summary>22. Generate Parentheses</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+
+        def dfs(openP, closeP, s):
+            if openP == closeP and openP + closeP == n * 2:
+                res.append(s)
+                return
+            
+            if openP < n:
+                dfs(openP + 1, closeP, s + "(")
+            
+            if closeP < openP:
+                dfs(openP, closeP + 1, s + ")")
+
+        dfs(0, 0, "")
+
+        return res
 </code></pre>
 </details>
 ---
@@ -594,6 +766,27 @@ class Solution:
 ---
 
 <details>
+<summary>2344. Minimum Deletions to Make Array Divisible</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def minOperations(self, nums: List[int], numsDivide: List[int]) -> int:
+        def find_gcd(arr):
+            return reduce(gcd, arr)
+
+        target_gcd = find_gcd(numsDivide)
+        nums.sort()
+
+        for i, num in enumerate(nums):
+            if target_gcd % num == 0:
+                return i 
+        return -1  
+
+</code></pre>
+</details>
+---
+
+<details>
 <summary>235. Lowest Common Ancestor of BST</summary>
 
 <pre><code class="language-python">
@@ -759,6 +952,185 @@ class Solution:
 ---
 
 <details>
+<summary>39. Combination Sum</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        def backtrack(remaining, combination, start):
+            if remaining == 0:
+                result.append(list(combination))
+                return
+            if remaining < 0:
+                return
+
+            for i in range(start, len(candidates)):
+                combination.append(candidates[i])
+                backtrack(remaining - candidates[i], combination, i)
+                combination.pop()
+
+        result = []
+        backtrack(target, [], 0)
+        return result
+</code></pre>
+</details>
+---
+
+<details>
+<summary>42. Trapping Rainwater</summary>
+
+<pre><code class="language-python">
+from typing import List
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        n = len(height)
+        if n == 0:
+            return 0
+        l,r,lmax,rmax,res=0,n-1,0,0,0
+        while(l<=r):
+            if(lmax<rmax):
+                res += max(0,lmax-height[l])
+                lmax = max(lmax,height[l])
+                l+=1
+            else:
+                res += max(0,rmax-height[r])
+                rmax = max(rmax,height[r])
+                r-=1
+        
+        return res
+
+</code></pre>
+</details>
+---
+
+<details>
+<summary>44. Wildcard Matching</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        m, n = len(s), len(p)
+        dp = [[False for _ in range(n + 1)] for i in range(m + 1)]
+        dp[0][0] = True
+        for j in range(1, n + 1):
+            if p[j - 1] != "*":
+                break
+            dp[0][j] = True
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if p[j - 1] == s[i - 1] or p[j - 1] == "?":
+                    dp[i][j] = dp[i - 1][j - 1]
+                elif p[j - 1] == "*":
+                    dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+        return dp[m][n]
+</code></pre>
+</details>
+---
+
+<details>
+<summary>46. Permutations</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) == 1:
+            return [nums[:]]
+        
+        res = []
+
+        for _ in range(len(nums)):
+            n = nums.pop(0)
+            perms = self.permute(nums)
+
+            for p in perms:
+                p.append(n)
+            
+            res.extend(perms)
+            nums.append(n)
+        
+        return res
+            
+</code></pre>
+</details>
+---
+
+<details>
+<summary>5. Longest Palindromic Substring</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s:
+            return ""
+
+        def expand_around_center(s: str, left: int, right: int):
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return right - left - 1
+
+
+        start = 0
+        end = 0
+
+        for i in range(len(s)):
+            odd = expand_around_center(s, i, i)
+            even = expand_around_center(s, i, i + 1)
+            max_len = max(odd, even)
+            
+            if max_len > end - start:
+                start = i - (max_len - 1) // 2
+                end = i + max_len // 2
+        
+        return s[start:end+1]
+</code></pre>
+</details>
+---
+
+<details>
+<summary>54. Spiral Matrix</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res=[]
+        if not matrix or not matrix[0]:
+            return res
+        r,c=len(matrix),len(matrix[0])
+        sr,sc,er,ec=0,0,r-1,c-1
+        cnt,total=0,r*c
+
+        while cnt<total:
+            for j in range(sc,ec+1):
+                if cnt<total:
+                    res.append(matrix[sr][j])
+                    cnt+=1
+            sr+=1            
+
+            for i in range(sr,er+1):
+                if cnt<total:
+                    res.append(matrix[i][ec])
+                    cnt+=1
+            
+            ec -= 1
+
+            for j in range(ec,sc-1,-1):
+                if cnt<total:
+                    res.append(matrix[er][j])
+                    cnt+=1
+            er-=1
+            for i in range(er,sr-1,-1):
+                if cnt<total:
+                    res.append(matrix[i][sc])
+                    cnt+=1
+            sc+=1
+        return res
+</code></pre>
+</details>
+---
+
+<details>
 <summary>543. Diameter of Binary Tree</summary>
 
 <pre><code class="language-python">
@@ -818,6 +1190,56 @@ class Solution:
         tail.next=None
         return head
 
+</code></pre>
+</details>
+---
+
+<details>
+<summary>673. Number of Longest Increasing Subsequence</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n <= 1:
+            return n
+
+        lengths = [1] * n
+        counts = [1] * n
+
+        for i in range(1, n):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    if lengths[j] + 1 > lengths[i]:
+                        lengths[i] = lengths[j] + 1
+                        counts[i] = counts[j]
+                    elif lengths[j] + 1 == lengths[i]:
+                        counts[i] += counts[j]
+
+        max_length = max(lengths)
+        return sum(count for length, count in zip(lengths, counts) if length == max_length)
+</code></pre>
+</details>
+---
+
+<details>
+<summary>72. Edit Distance</summary>
+
+<pre><code class="language-python">
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        n, m = len(word1), len(word2)
+        dp = [i for i in range(n+1)]
+        for i in range(1, m+1):
+            curr = [0] * (n+1)
+            curr[0] = i
+            for j in range(1, n+1):
+                if word1[j-1] == word2[i-1]:
+                    curr[j] = dp[j-1]
+                else:
+                    curr[j] = 1 + min(dp[j], dp[j-1], curr[j-1])
+            dp = curr
+        return dp[n]
 </code></pre>
 </details>
 ---
